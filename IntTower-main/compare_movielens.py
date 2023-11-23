@@ -254,34 +254,43 @@ if __name__ == "__main__":
 
     # %%
     # 6.Evaluate
-    print("new IntTower:")
+    print("\nIntMatch:")
     eval_tr = model.evaluate(train_model_input, train[target].values)
     print(eval_tr)
     pred_ts = model.predict(test_model_input, batch_size=batch_size)
     print("test recall", round(recall_score(test[target].values, np.where(pred_ts > 0.5, 1, 0)), 4))
+    print("test precision", round(precision_score(test[target].values, np.where(pred_ts > 0.5, 1, 0)), 4))
+    print("test f1", round(f1_score(test[target].values, np.where(pred_ts > 0.5, 1, 0)), 4))
     print("test ndcg", round(ndcg_score([test[target].values.flatten()], [np.where(pred_ts > 0.5, 1, 0).flatten()]), 4))
+    
 
-
-    print("old IntTower:")
+    print("\nIntTower:")
     eval_tr2 = model2.evaluate(train_model_input, train[target].values)
     print(eval_tr2)
     pred_ts2 = model2.predict(test_model_input, batch_size=batch_size)
     print("test recall", round(recall_score(test[target].values, np.where(pred_ts2 > 0.5, 1, 0)), 4))
+    print("test precision", round(precision_score(test[target].values, np.where(pred_ts2 > 0.5, 1, 0)), 4))
+    print("test f1", round(f1_score(test[target].values, np.where(pred_ts2 > 0.5, 1, 0)), 4))
     print("test ndcg", round(ndcg_score([test[target].values.flatten()], [np.where(pred_ts2 > 0.5, 1, 0).flatten()]), 4))
 
 
-    print("DeepFM:")
+    print("\nDeepFM:")
     eval_tr3 = model3.evaluate(train_model_input, train[target].values)
     print(eval_tr3)
     pred_ts3 = model3.predict(test_model_input, batch_size=batch_size)
+    print("test precision", round(precision_score(test[target].values, np.where(pred_ts3 > 0.5, 1, 0)), 4))
     print("test recall", round(recall_score(test[target].values, np.where(pred_ts3 > 0.5, 1, 0)), 4))
+    print("test f1", round(f1_score(test[target].values, np.where(pred_ts3 > 0.5, 1, 0)), 4))
     print("test ndcg", round(ndcg_score([test[target].values.flatten()], [np.where(pred_ts3 > 0.5, 1, 0).flatten()]), 4))
 
 
-    print("DSSM:")
+    print("\nDSSM:")
     eval_tr4 = model4.evaluate(train_model_input, train[target].values)
     print(eval_tr4)
     pred_ts4 = model4.predict(test_model_input, batch_size=batch_size)
+    print("test precision", round(precision_score(test[target].values, np.where(pred_ts4 > 0.5, 1, 0)), 4))
     print("test recall", round(recall_score(test[target].values, np.where(pred_ts4 > 0.5, 1, 0)), 4))
+    print("test f1", round(f1_score(test[target].values, np.where(pred_ts4 > 0.5, 1, 0)), 4))
     print("test ndcg", round(ndcg_score([test[target].values.flatten()], [np.where(pred_ts4 > 0.5, 1, 0).flatten()]), 4))
+    
 
