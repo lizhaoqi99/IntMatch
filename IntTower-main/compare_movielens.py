@@ -238,7 +238,7 @@ if __name__ == "__main__":
     model4.compile("adam", "binary_crossentropy", metrics=['recall','ndcg']
                 , lr=lr)
     model4.fit(train_model_input, train[target].values, batch_size= batch_size, epochs=15, verbose=2, validation_split=0.2,
-              callbacks=[es2, mdckpt3])
+              callbacks=[es2, mdckpt4])
     model4.load_state_dict(torch.load('movie_dssm.ckpt'))
     model4.eval()
 
