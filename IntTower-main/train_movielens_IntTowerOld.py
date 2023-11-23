@@ -88,10 +88,10 @@ def setup_seed(seed):
 if __name__ == "__main__":
     # %%
 
-    embedding_dim = 16
+    embedding_dim = 32
 
     epoch = 10
-    batch_size = 256
+    batch_size = 2048
     lr = 0.001
     seed = 1023
     dropout = 0.3
@@ -164,24 +164,25 @@ if __name__ == "__main__":
     use_cuda = True
     if use_cuda and torch.cuda.is_available():
         print('cuda ready...')
-        device = 'cuda:0'
+        device = 'cuda:4'
 
     # print(train_model_input)
-    es = EarlyStopping(monitor='val_ndcg', min_delta=0, verbose=1,
-                        patience=5, mode='max', baseline=None)
-    mdckpt = ModelCheckpoint(filepath='movie_Intower.ckpt', monitor='val_ndcg',
-                            mode='max', verbose=1, save_best_only=True, save_weights_only=True)
 
-    model = IntTower(user_feature_columns, item_feature_columns, field_dim= 32, task='binary', dnn_dropout=dropout,
-                    device=device, user_head=6,item_head=6,user_filed_size=4,item_filed_size=2)
+    es = EarlyStopping(monitor='val_auc', min_delta=0, verbose=1,
+                       patience=5, mode='max', baseline=None)
+    mdckpt = ModelCheckpoint(filepath='movie_Intower.ckpt', monitor='val_auc',
+                             mode='max', verbose=1, save_best_only=True, save_weights_only=True)
 
-    model.compile("adam", "binary_crossentropy", metrics=['ndcg']
-                , lr=lr)
+    model = IntTower(user_feature_columns, item_feature_columns, field_dim= 64, task='binary', dnn_dropout=dropout,
+                     device=device, user_head=32,item_head=32,user_filed_size=4,item_filed_size=2)
+
+    model.compile("adam", "binary_crossentropy", metrics=['auc', 'accuracy', 'logloss']
+                  , lr=lr)
 
 
 
     model.fit(train_model_input, train[target].values, batch_size= batch_size, epochs=epoch, verbose=2, validation_split=0.2,
-            callbacks=[es, mdckpt])
+              callbacks=[es, mdckpt])
 
     model.load_state_dict(torch.load('movie_Intower.ckpt'))
 
@@ -206,9 +207,9 @@ if __name__ == "__main__":
     print(eval_tr)
 
     # %%
-    pred_ts = model.predict(test_model_input, batch_size=batch_size)
-    print("test recall", round(recall_score(test[target].values, np.where(pred_ts > 0.5, 1, 0)), 4))
-    print("test ndcg", round(ndcg_score([test[target].values.flatten()], [np.where(pred_ts > 0.5, 1, 0)]), 4))
+    pred_ts = model.predict(test_model_input, batch_size=2048)
+    print("test LogLoss", round(log_loss(test[target].values, pred_ts), 4))
+    print("test AUC", round(roc_auc_score(test[target].values, pred_ts), 4))
 
 
 

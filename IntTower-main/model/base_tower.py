@@ -441,7 +441,7 @@ class BaseTower(nn.Module):
                         y_true, np.where(y_pred > 0.5, 1, 0))
                 if metric == "ndcg":
                     metrics_[metric] = lambda y_true, y_pred: ndcg_score(
-                        [y_true], [np.where(y_pred > 0.5, 1, 0)])
+                        [y_true.flatten()], [np.where(y_pred > 0.5, 1, 0)])
                 self.metrics_names.append(metric)
         return metrics_
 
