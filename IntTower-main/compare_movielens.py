@@ -192,7 +192,7 @@ if __name__ == "__main__":
     # print(train_model_input)
     es = EarlyStopping(monitor='val_ndcg', min_delta=0, verbose=1,
                         patience=5, mode='max', baseline=None)
-    es2 = EarlyStopping(monitor='val_auc', min_delta=0, verbose=1,
+    es2 = EarlyStopping(monitor='val_ndcg', min_delta=0, verbose=1,
                        patience=3, mode='max', baseline=None)
     mdckpt = ModelCheckpoint(filepath='movie_Intower.ckpt', monitor='val_ndcg',
                             mode='max', verbose=1, save_best_only=True, save_weights_only=True)
