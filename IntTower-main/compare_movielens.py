@@ -263,7 +263,7 @@ if __name__ == "__main__":
 
 
     print("old IntTower:")
-    eval_tr2 = model.evaluate(train_model_input, train[target].values)
+    eval_tr2 = model2.evaluate(train_model_input, train[target].values)
     print(eval_tr2)
     pred_ts2 = model2.predict(test_model_input, batch_size=batch_size)
     print("test recall", round(recall_score(test[target].values, np.where(pred_ts2 > 0.5, 1, 0)), 4))
@@ -271,7 +271,7 @@ if __name__ == "__main__":
 
 
     print("DeepFM:")
-    eval_tr3 = model.evaluate(train_model_input, train[target].values)
+    eval_tr3 = model3.evaluate(train_model_input, train[target].values)
     print(eval_tr3)
     pred_ts3 = model3.predict(test_model_input, batch_size=batch_size)
     print("test recall", round(recall_score(test[target].values, np.where(pred_ts3 > 0.5, 1, 0)), 4))
@@ -279,7 +279,7 @@ if __name__ == "__main__":
 
 
     print("DSSM:")
-    eval_tr4 = model.evaluate(train_model_input, train[target].values)
+    eval_tr4 = model4.evaluate(train_model_input, train[target].values)
     print(eval_tr4)
     pred_ts4 = model4.predict(test_model_input, batch_size=batch_size)
     print("test recall", round(recall_score(test[target].values, np.where(pred_ts4 > 0.5, 1, 0)), 4))
