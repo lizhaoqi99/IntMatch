@@ -88,10 +88,10 @@ def setup_seed(seed):
 if __name__ == "__main__":
     # %%
 
-    embedding_dim = 32
+    embedding_dim = 16
 
     epoch = 10
-    batch_size = 2048
+    batch_size = 256
     lr = 0.001
     seed = 1023
     dropout = 0.3
@@ -164,7 +164,7 @@ if __name__ == "__main__":
     use_cuda = True
     if use_cuda and torch.cuda.is_available():
         print('cuda ready...')
-        device = 'cuda:4'
+        device = 'cuda:0'
 
     # print(train_model_input)
 
@@ -174,7 +174,7 @@ if __name__ == "__main__":
                              mode='max', verbose=1, save_best_only=True, save_weights_only=True)
 
     model = IntTower(user_feature_columns, item_feature_columns, field_dim= 64, task='binary', dnn_dropout=dropout,
-                     device=device, user_head=32,item_head=32,user_filed_size=4,item_filed_size=2)
+                     device=device, user_head=6,item_head=6,user_filed_size=4,item_filed_size=2)
 
     model.compile("adam", "binary_crossentropy", metrics=['auc', 'accuracy', 'logloss']
                   , lr=lr)

@@ -437,9 +437,11 @@ class BaseTower(nn.Module):
                     metrics_[metric] = lambda y_true, y_pred: accuracy_score(
                         y_true, np.where(y_pred > 0.5, 1, 0))
                 if metric == "recall":
-                    metrics_[metric] = recall_score
+                    metrics_[metric] = lambda y_true, y_pred: recall_score(   
+                        y_true, np.where(y_pred > 0.5, 1, 0))
                 if metric == "ndcg":
-                    metrics_[metric] = ndcg_score
+                    metrics_[metric] = lambda y_true, y_pred: ndcg_score(
+                        [y_true], [np.where(y_pred > 0.5, 1, 0)])
                 self.metrics_names.append(metric)
         return metrics_
 
