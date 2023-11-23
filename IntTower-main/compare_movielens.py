@@ -259,7 +259,7 @@ if __name__ == "__main__":
     print(eval_tr)
     pred_ts = model.predict(test_model_input, batch_size=batch_size)
     print("test recall", round(recall_score(test[target].values, np.where(pred_ts > 0.5, 1, 0)), 4))
-    print("test ndcg", round(ndcg_score([test[target].values.flatten()], [np.where(pred_ts > 0.5, 1, 0)]), 4))
+    print("test ndcg", round(ndcg_score([test[target].values.flatten()], [np.where(pred_ts > 0.5, 1, 0).flatten()]), 4))
 
 
     print("old IntTower:")
@@ -267,7 +267,7 @@ if __name__ == "__main__":
     print(eval_tr2)
     pred_ts2 = model2.predict(test_model_input, batch_size=batch_size)
     print("test recall", round(recall_score(test[target].values, np.where(pred_ts2 > 0.5, 1, 0)), 4))
-    print("test ndcg", round(ndcg_score([test[target].values.flatten()], [np.where(pred_ts2 > 0.5, 1, 0)]), 4))
+    print("test ndcg", round(ndcg_score([test[target].values.flatten()], [np.where(pred_ts2 > 0.5, 1, 0).flatten()]), 4))
 
 
     print("DeepFM:")
@@ -275,7 +275,7 @@ if __name__ == "__main__":
     print(eval_tr3)
     pred_ts3 = model3.predict(test_model_input, batch_size=batch_size)
     print("test recall", round(recall_score(test[target].values, np.where(pred_ts3 > 0.5, 1, 0)), 4))
-    print("test ndcg", round(ndcg_score([test[target].values.flatten()], [np.where(pred_ts3 > 0.5, 1, 0)]), 4))
+    print("test ndcg", round(ndcg_score([test[target].values.flatten()], [np.where(pred_ts3 > 0.5, 1, 0).flatten()]), 4))
 
 
     print("DSSM:")
@@ -283,5 +283,5 @@ if __name__ == "__main__":
     print(eval_tr4)
     pred_ts4 = model4.predict(test_model_input, batch_size=batch_size)
     print("test recall", round(recall_score(test[target].values, np.where(pred_ts4 > 0.5, 1, 0)), 4))
-    print("test ndcg", round(ndcg_score([test[target].values.flatten()], [np.where(pred_ts4 > 0.5, 1, 0)]), 4))
+    print("test ndcg", round(ndcg_score([test[target].values.flatten()], [np.where(pred_ts4 > 0.5, 1, 0).flatten()]), 4))
 
